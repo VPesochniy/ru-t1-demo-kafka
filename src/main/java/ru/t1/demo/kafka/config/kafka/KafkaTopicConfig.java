@@ -12,7 +12,7 @@ public class KafkaTopicConfig {
 
     public KafkaTopicConfig(KafkaProperties kafkaProperties) {
         this.kafkaProperties = kafkaProperties;
-    }
+    }   
 
     @Bean
     public NewTopic userRegistrationTopic() {

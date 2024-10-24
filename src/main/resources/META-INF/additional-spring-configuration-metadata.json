@@ -1,5 +1,14 @@
-{"properties": [{
-  "name": "kafka.topic.user-to-register",
-  "type": "java.lang.String",
-  "description": "A description for 'kafka.topic.user-to-register'"
-}]}
+{
+  "properties": [
+    {
+      "name": "kafka.topic.user-to-register",
+      "type": "java.lang.String",
+      "description": "A description for 'kafka.topic.user-to-register'"
+    },
+    {
+      "name": "kafka.group-id.user-registration",
+      "type": "java.lang.String",
+      "description": "A description for 'kafka.group-id.user-registration'"
+    }
+  ]
+}
