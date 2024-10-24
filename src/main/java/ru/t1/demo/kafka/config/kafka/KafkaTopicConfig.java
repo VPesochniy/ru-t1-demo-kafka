@@ -12,11 +12,17 @@ public class KafkaTopicConfig {
 
     public KafkaTopicConfig(KafkaProperties kafkaProperties) {
         this.kafkaProperties = kafkaProperties;
-    }   
+    }
 
     @Bean
-    public NewTopic userRegistrationTopic() {
+    public NewTopic userToRegisterTopic() {
         return TopicBuilder.name(kafkaProperties.getUserToRegisterTopicName())
+                .build();
+    }
+
+    @Bean
+    public NewTopic userRegisteredTopic() {
+        return TopicBuilder.name(kafkaProperties.getUserRegisteredTopicName())
                 .build();
     }
 }
