@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ru.t1.demo.kafka.amqp.kafka.KafkaUserProducer;
 import ru.t1.demo.kafka.dto.UserDto;
 import ru.t1.demo.kafka.entity.User;
 import ru.t1.demo.kafka.repository.UserRepository;
@@ -20,22 +20,25 @@ import ru.t1.demo.kafka.util.UserMapper;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final KafkaUserProducer kafkaUserProducer;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, KafkaUserProducer kafkaUserProducer) {
         this.userRepository = userRepository;
+        this.kafkaUserProducer = kafkaUserProducer;
     }
 
     public void registerMockUsers() {
-        List<UserDto> mockUsers = parseUsersFromJson();
-        List<User> users = convertToEntity(mockUsers);
-        userRepository.saveAll(users);
-
+        List<UserDto> usersDto = parseUsersFromJson();
+        usersDto.forEach(kafkaUserProducer::send);
     }
 
-    private List<User> convertToEntity(List<UserDto> mockUsers) {
-        return mockUsers.stream()
-                .map(UserMapper::toEntity)
-                .collect(Collectors.toList());
+    public void saveUsersToDatabase(List<User> users) {
+        userRepository.saveAll(users).stream()
+                .forEach(user -> {
+                    UserDto userDto = UserMapper.toDto(user);
+                    kafkaUserProducer.sendRegistered(userDto);
+                });
+
     }
 
     private List<UserDto> parseUsersFromJson() {
@@ -53,6 +56,10 @@ public class UserService {
         }
 
         return Arrays.asList(parsedUsers);
+    }
+
+    public List<User> getRegisteredUsers() {
+        return userRepository.findAll();
     }
 
 }

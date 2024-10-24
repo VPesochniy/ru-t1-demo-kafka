@@ -11,13 +11,25 @@ public class UserMapper {
     private UserMapper() {
     }
 
-    public static User toEntity(UserDto dto) {
+    public static User toEntity(UserDto userDto) {
         return User.builder()
-                .firstName(dto.firstName())
-                .lastName(dto.lastName())
-                .email(dto.email())
-                .age(dto.age())
-                .gender(dto.gender())
+                .firstName(userDto.firstName())
+                .lastName(userDto.lastName())
+                .email(userDto.email())
+                .age(userDto.age())
+                .gender(userDto.gender())
                 .build();
     }
+
+    public static UserDto toDto(User user) {
+        return UserDto.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .age(user.getAge())
+                .gender(user.getGender())
+                .build();
+    }
+
 }

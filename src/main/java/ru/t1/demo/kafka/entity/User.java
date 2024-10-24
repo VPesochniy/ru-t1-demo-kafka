@@ -8,13 +8,17 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @Table(name = "users") /* user является ключевым словом в sql */
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id

@@ -1,6 +1,10 @@
 package ru.t1.demo.kafka.dto;
 
+import java.util.UUID;
+
+import lombok.Builder;
 import ru.t1.demo.kafka.entity.UserGender;
 
-public record UserDto(String firstName, String lastName, String email, Integer age, UserGender gender) {
+@Builder
+public record UserDto(UUID id, String firstName, String lastName, String email, Integer age, UserGender gender) {
 }

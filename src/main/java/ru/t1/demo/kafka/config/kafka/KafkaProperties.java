@@ -18,4 +18,7 @@ public class KafkaProperties {
     @Value("${kafka.group-id.user-registration}")
     private String userRegistrationGroupId;
 
+    @Value("${kafka.topic.user-registered}")
+    private String userRegisteredTopicName;
+
 }
