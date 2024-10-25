@@ -33,7 +33,7 @@ public class UserService {
     }
 
     public void saveUsersToDatabase(List<User> users) {
-        userRepository.saveAll(users).stream()
+        userRepository.saveAll(users).stream() /* увидел на занятии и офигел, что так можно (очень удобно) */
                 .forEach(user -> {
                     UserDto userDto = UserMapper.toDto(user);
                     kafkaUserProducer.sendRegistered(userDto);

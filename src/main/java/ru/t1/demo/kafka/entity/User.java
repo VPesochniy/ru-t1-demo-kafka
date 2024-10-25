@@ -25,7 +25,7 @@ public class User {
     @UuidGenerator
     private UUID id;
 
-    @Column
+    @Column /* можно повесить кучу ограничений, но мы сейчас работаем с кафкой */
     private String firstName;
 
     @Column

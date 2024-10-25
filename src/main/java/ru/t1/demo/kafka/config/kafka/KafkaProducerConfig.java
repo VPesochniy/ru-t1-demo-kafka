@@ -17,17 +17,17 @@ import ru.t1.demo.kafka.dto.UserDto;
 @Configuration
 public class KafkaProducerConfig {
 
-    private final KafkaProperties kafkaProperties;
+    private final KafkaPropertiesConfig kafkaPropertiesConfig;
 
-    public KafkaProducerConfig(KafkaProperties kafkaProperties) {
-        this.kafkaProperties = kafkaProperties;
+    public KafkaProducerConfig(KafkaPropertiesConfig kafkaPropertiesConfig) {
+        this.kafkaPropertiesConfig = kafkaPropertiesConfig;
     }
 
     @Bean
     public Map<String, Object> producerConfig() {
         Map<String, Object> props = new HashMap<>();
 
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaPropertiesConfig.getBootstrapServers());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 

@@ -8,21 +8,21 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaTopicConfig {
 
-    private final KafkaProperties kafkaProperties;
+    private final KafkaPropertiesConfig kafkaPropertiesConfig;
 
-    public KafkaTopicConfig(KafkaProperties kafkaProperties) {
-        this.kafkaProperties = kafkaProperties;
+    public KafkaTopicConfig(KafkaPropertiesConfig kafkaPropertiesConfig) {
+        this.kafkaPropertiesConfig = kafkaPropertiesConfig;
     }
 
     @Bean
     public NewTopic userToRegisterTopic() {
-        return TopicBuilder.name(kafkaProperties.getUserToRegisterTopicName())
+        return TopicBuilder.name(kafkaPropertiesConfig.getUserToRegisterTopicName())
                 .build();
     }
 
     @Bean
     public NewTopic userRegisteredTopic() {
-        return TopicBuilder.name(kafkaProperties.getUserRegisteredTopicName())
+        return TopicBuilder.name(kafkaPropertiesConfig.getUserRegisteredTopicName())
                 .build();
     }
 }

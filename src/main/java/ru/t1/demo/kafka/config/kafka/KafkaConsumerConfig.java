@@ -12,6 +12,7 @@ import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import org.springframework.kafka.listener.ContainerProperties.AckMode;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import ru.t1.demo.kafka.dto.UserDto;
@@ -19,10 +20,10 @@ import ru.t1.demo.kafka.dto.UserDto;
 @Configuration
 public class KafkaConsumerConfig {
 
-    private final KafkaProperties kafkaProperties;
+    private final KafkaPropertiesConfig kafkaPropertiesConfig;
 
-    public KafkaConsumerConfig(KafkaProperties kafkaProperties) {
-        this.kafkaProperties = kafkaProperties;
+    public KafkaConsumerConfig(KafkaPropertiesConfig kafkaPropertiesConfig) {
+        this.kafkaPropertiesConfig = kafkaPropertiesConfig;
     }
 
     @Bean
@@ -30,7 +31,7 @@ public class KafkaConsumerConfig {
 
         Map<String, Object> props = new HashMap<>();
 
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaPropertiesConfig.getBootstrapServers());
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, Boolean.FALSE);
@@ -50,6 +51,7 @@ public class KafkaConsumerConfig {
 
         ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
+        factory.getContainerProperties().setAckMode(AckMode.MANUAL_IMMEDIATE);
 
         return factory;
     }
