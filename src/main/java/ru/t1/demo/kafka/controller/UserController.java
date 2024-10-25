@@ -29,11 +29,11 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getRegisteredUsers() {
-        List<UserDto> usersDtos = userService.getRegisteredUsers().stream()
+        List<UserDto> usersDto = userService.getRegisteredUsers().stream()
                 .map(UserMapper::toDto)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(usersDtos);
+        return ResponseEntity.ok(usersDto);
     }
 
 }
