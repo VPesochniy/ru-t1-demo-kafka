@@ -15,16 +15,14 @@ import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.listener.ContainerProperties.AckMode;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
+import lombok.RequiredArgsConstructor;
 import ru.t1.demo.kafka.dto.UserDto;
 
 @Configuration
+@RequiredArgsConstructor
 public class KafkaConsumerConfig {
 
     private final KafkaPropertiesConfig kafkaPropertiesConfig;
-
-    public KafkaConsumerConfig(KafkaPropertiesConfig kafkaPropertiesConfig) {
-        this.kafkaPropertiesConfig = kafkaPropertiesConfig;
-    }
 
     @Bean
     public Map<String, Object> consumerConfig() {

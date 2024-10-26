@@ -8,9 +8,6 @@ import ru.t1.demo.kafka.entity.User;
 @Component
 public class UserMapper {
 
-    private UserMapper() {
-    }
-
     public static User toEntity(UserDto userDto) {
         return User.builder()
                 .firstName(userDto.firstName())
@@ -30,6 +27,9 @@ public class UserMapper {
                 .age(user.getAge())
                 .gender(user.getGender())
                 .build();
+    }
+
+    private UserMapper() {
     }
 
 }

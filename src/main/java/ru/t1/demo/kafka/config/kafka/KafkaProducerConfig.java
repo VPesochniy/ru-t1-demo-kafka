@@ -12,16 +12,14 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+import lombok.RequiredArgsConstructor;
 import ru.t1.demo.kafka.dto.UserDto;
 
 @Configuration
+@RequiredArgsConstructor
 public class KafkaProducerConfig {
 
     private final KafkaPropertiesConfig kafkaPropertiesConfig;
-
-    public KafkaProducerConfig(KafkaPropertiesConfig kafkaPropertiesConfig) {
-        this.kafkaPropertiesConfig = kafkaPropertiesConfig;
-    }
 
     @Bean
     public Map<String, Object> producerConfig() {

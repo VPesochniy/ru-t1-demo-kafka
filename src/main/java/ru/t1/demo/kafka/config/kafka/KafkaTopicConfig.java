@@ -5,14 +5,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
+@RequiredArgsConstructor
 public class KafkaTopicConfig {
 
     private final KafkaPropertiesConfig kafkaPropertiesConfig;
-
-    public KafkaTopicConfig(KafkaPropertiesConfig kafkaPropertiesConfig) {
-        this.kafkaPropertiesConfig = kafkaPropertiesConfig;
-    }
 
     @Bean
     public NewTopic userToRegisterTopic() {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
 import ru.t1.demo.kafka.amqp.kafka.KafkaUserProducer;
 import ru.t1.demo.kafka.dto.UserDto;
 import ru.t1.demo.kafka.entity.User;
@@ -17,15 +18,11 @@ import ru.t1.demo.kafka.repository.UserRepository;
 import ru.t1.demo.kafka.util.UserMapper;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final KafkaUserProducer kafkaUserProducer;
-
-    public UserService(UserRepository userRepository, KafkaUserProducer kafkaUserProducer) {
-        this.userRepository = userRepository;
-        this.kafkaUserProducer = kafkaUserProducer;
-    }
 
     public void registerMockUsers() {
         List<UserDto> usersDto = parseUsersFromJson();
@@ -39,6 +36,10 @@ public class UserService {
                     kafkaUserProducer.sendRegistered(userDto);
                 });
 
+    }
+
+    public List<User> getRegisteredUsers() {
+        return userRepository.findAll();
     }
 
     private List<UserDto> parseUsersFromJson() {
@@ -56,10 +57,6 @@ public class UserService {
         }
 
         return Arrays.asList(parsedUsers);
-    }
-
-    public List<User> getRegisteredUsers() {
-        return userRepository.findAll();
     }
 
 }

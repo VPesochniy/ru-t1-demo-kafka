@@ -17,7 +17,7 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2182
     restart: always
-      
+
   kafka:
     image: confluentinc/cp-kafka
     hostname: kafka
