@@ -22,7 +22,7 @@ public class KafkaProducerConfig {
     private final KafkaPropertiesConfig kafkaPropertiesConfig;
 
     @Bean
-    public Map<String, Object> producerConfig() {
+    Map<String, Object> producerConfig() {
         Map<String, Object> props = new HashMap<>();
 
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaPropertiesConfig.getBootstrapServers());
@@ -34,12 +34,12 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, UserDto> producerFactory() {
+    ProducerFactory<String, UserDto> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfig());
     }
 
     @Bean
-    public KafkaTemplate<String, UserDto> kafkaTemplate() {
+    KafkaTemplate<String, UserDto> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 

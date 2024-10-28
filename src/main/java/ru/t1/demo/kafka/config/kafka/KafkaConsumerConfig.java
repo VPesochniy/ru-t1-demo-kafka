@@ -25,7 +25,7 @@ public class KafkaConsumerConfig {
     private final KafkaPropertiesConfig kafkaPropertiesConfig;
 
     @Bean
-    public Map<String, Object> consumerConfig() {
+    Map<String, Object> consumerConfig() {
 
         Map<String, Object> props = new HashMap<>();
 
@@ -40,12 +40,12 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConsumerFactory<String, UserDto> consumerFactory() {
+    ConsumerFactory<String, UserDto> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfig());
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, UserDto>> kafkaListenerContainerFactory() {
+    KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, UserDto>> kafkaListenerContainerFactory() {
 
         ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());

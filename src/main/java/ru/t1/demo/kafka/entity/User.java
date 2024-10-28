@@ -10,20 +10,28 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-@Builder
-@Table(name = "users") /* user является ключевым словом в sql */
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Setter
+@Getter
+@Builder
+@Entity
+@Table(name = "users") /* user является ключевым словом в sql */
 public class User {
 
     @Id
+    @Setter(AccessLevel.NONE)
     @UuidGenerator
     private UUID id;
 

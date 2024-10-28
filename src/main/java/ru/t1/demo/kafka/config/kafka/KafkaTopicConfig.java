@@ -14,13 +14,13 @@ public class KafkaTopicConfig {
     private final KafkaPropertiesConfig kafkaPropertiesConfig;
 
     @Bean
-    public NewTopic userToRegisterTopic() {
+    NewTopic userToRegisterTopic() {
         return TopicBuilder.name(kafkaPropertiesConfig.getUserToRegisterTopicName())
                 .build();
     }
 
     @Bean
-    public NewTopic userRegisteredTopic() {
+    NewTopic userRegisteredTopic() {
         return TopicBuilder.name(kafkaPropertiesConfig.getUserRegisteredTopicName())
                 .build();
     }

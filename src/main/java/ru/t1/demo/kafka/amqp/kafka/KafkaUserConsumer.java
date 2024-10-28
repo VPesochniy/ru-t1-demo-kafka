@@ -9,6 +9,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ru.t1.demo.kafka.config.kafka.KafkaPropertiesConfig;
 import ru.t1.demo.kafka.dto.UserDto;
 import ru.t1.demo.kafka.entity.User;
@@ -17,6 +18,7 @@ import ru.t1.demo.kafka.util.UserMapper;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class KafkaUserConsumer {
 
     private final KafkaPropertiesConfig kafkaPropertiesConfig;
@@ -27,12 +29,17 @@ public class KafkaUserConsumer {
             @Payload List<UserDto> usersDto, /* не знал, что можно сразу коллекцией принимать сообщения */
             Acknowledgment ack) {
 
-        List<User> users = usersDto.stream()
-                .map(UserMapper::toEntity)
-                .collect(Collectors.toList());
+        try {
+            List<User> users = usersDto.stream()
+                    .map(UserMapper::toEntity)
+                    .collect(Collectors.toList());
 
-        userService.saveUsersToDatabase(users);
-        ack.acknowledge();
+            userService.saveUsersToDatabase(users);
+            ack.acknowledge();
+
+        } catch (Exception ex) {
+            log.warn("Suppressed. {}", ex.getMessage());
+        }
     }
 
 }

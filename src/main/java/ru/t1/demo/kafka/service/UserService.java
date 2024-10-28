@@ -44,19 +44,19 @@ public class UserService {
 
     private List<UserDto> parseUsersFromJson() {
 
-        ClassPathResource resource = new ClassPathResource("MOCK_DATA.json");
+        ClassPathResource mockUsersData = new ClassPathResource("MOCK_DATA.json");
         ObjectMapper objectMapper = new ObjectMapper();
 
-        UserDto[] parsedUsers;
+        UserDto[] parsedUsersDto;
 
         try {
-            parsedUsers = objectMapper.readValue(resource.getFile(), UserDto[].class);
+            parsedUsersDto = objectMapper.readValue(mockUsersData.getFile(), UserDto[].class);
         } catch (IOException ex) {
             ex.printStackTrace();
             return Collections.emptyList();
         }
 
-        return Arrays.asList(parsedUsers);
+        return Arrays.asList(parsedUsersDto);
     }
 
 }

@@ -3,7 +3,6 @@ package ru.t1.demo.kafka.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,12 +25,10 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getRegisteredUsers() {
-        List<UserDto> usersDto = userService.getRegisteredUsers().stream()
+    public List<UserDto> getRegisteredUsers() {
+        return userService.getRegisteredUsers().stream()
                 .map(UserMapper::toDto)
                 .collect(Collectors.toList());
-
-        return ResponseEntity.ok(usersDto);
     }
 
 }
