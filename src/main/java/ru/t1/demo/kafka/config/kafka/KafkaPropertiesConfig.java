@@ -7,7 +7,6 @@ import lombok.Getter;
 
 @Getter
 @Configuration
-// @ConfigurationProperties /* можно использовать это, но с аннотацией @Value как-то нагляднее */
 public class KafkaPropertiesConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
